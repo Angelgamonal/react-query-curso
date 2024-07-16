@@ -2,14 +2,32 @@ import { FiInfo, FiMessageSquare, FiCheckCircle } from "react-icons/fi";
 import { Issue } from "../interfaces";
 import { State } from "../interfaces/issue";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { getIssueInfo } from "../hooks/useIssue";
 
 export const IssueItem = ({ issue }: { issue: Issue }) => {
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+
+  const prefetchData = () => {
+    queryClient.prefetchQuery({
+      queryKey: ["issue", issue.number],
+      queryFn: () => getIssueInfo(issue.number),
+    });
+  };
+
+  const preSetData = () => {
+    queryClient.setQueryData(["issue", issue.number], () => issue, {
+      updatedAt: new Date().getTime() + 900000,
+    });
+  };
 
   return (
     <div
       className="card mb-2 issue"
       onClick={() => navigate(`/issues/issue/${issue.number}`)}
+      onMouseEnter={preSetData}
     >
       <div className="card-body d-flex align-items-center">
         {issue.state !== State.Open ? (
