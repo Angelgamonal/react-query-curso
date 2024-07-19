@@ -4,6 +4,7 @@ import { State } from "../interfaces/issue";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { getIssueInfo } from "../hooks/useIssue";
+import { timeSince } from "../../helpers/time-since";
 
 export const IssueItem = ({ issue }: { issue: Issue }) => {
   const navigate = useNavigate();
@@ -39,9 +40,21 @@ export const IssueItem = ({ issue }: { issue: Issue }) => {
         <div className="d-flex flex-column flex-fill px-2">
           <span>{issue.title}</span>
           <span className="issue-subinfo">
-            #{issue.number} opened 2 days ago by{" "}
-            <span className="fw-bold">{issue.user.login}</span>
+            #{issue.number} opened {timeSince(issue.created_at.toString())} ago
+            by <span className="fw-bold">{issue.user.login}</span>
           </span>
+
+          <div>
+            {issue.labels.map((label) => (
+              <span
+                key={label.id}
+                className="badge rounded-pill m-1"
+                style={{ backgroundColor: `#${label.color}`, color: "black" }}
+              >
+                {label.name}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="d-flex align-items-center">
