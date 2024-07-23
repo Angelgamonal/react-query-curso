@@ -43,6 +43,8 @@ export const useIssues = ({ labels, state }: Props) => {
   const issuesQuery = useQuery({
     queryKey: ["issues", { state, labels, page }],
     queryFn: () => getIssues({ labels, state }),
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const nextPage = () => {
