@@ -239,6 +239,46 @@
         "rate": 3.6,
         "count": 145
       }
+    },
+    {
+      "category": "electronics",
+      "description": "teclado gamer xd",
+      "image": "https://mla-s1-p.mlstatic.com/780079-MLA43542301207_092020-F.jpg",
+      "price": 120,
+      "title": "teclado",
+      "id": 21
+    },
+    {
+      "category": "men's clothing",
+      "description": "ropa para hombre",
+      "image": "https://media.gq.com.mx/photos/62ed694ef84edeef239b60b9/1:1/w_1428,h_1428,c_limit/ropa-basica-barata-para-hombre-cual-es-como-comprar.jpg",
+      "price": 80.22,
+      "title": "ropa para hombre",
+      "id": 22
+    },
+    {
+      "category": "women's clothing",
+      "description": "lorem12234",
+      "image": "https://assets.isu.pub/document-structure/230112230556-e0970f724c76bdacf73b2663b23f7f6e/v1/00142bb09d20417f0140cc398f34e3bf.jpeg",
+      "price": 90,
+      "title": "woman shopes",
+      "id": 23
+    },
+    {
+      "category": "women's clothing",
+      "description": "dasdasdasdasd",
+      "image": "https://tissini.com/blog/wp-content/uploads/2022/06/cut-out-jumpsuit-de-color-rojo-ropa-de-verano-para-mujer.jpg",
+      "price": 100,
+      "title": "dasdasd",
+      "id": 24
+    },
+    {
+      "category": "women's clothing",
+      "description": "asdasdasdas",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuR4kBxVCGdODjgvsVqYoO-cpuZT4cusPTmg&s",
+      "price": 123,
+      "title": "1asdas",
+      "id": 25
     }
   ]
 }

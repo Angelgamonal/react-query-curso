@@ -1,5 +1,7 @@
 import { Button, Image, Input, Textarea } from "@nextui-org/react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useProductMutation } from "..";
+import { useEffect } from "react";
 
 interface FormInput {
   title: string;
@@ -9,10 +11,20 @@ interface FormInput {
   image: string;
 }
 
+const IMAGE_DEFAULT =
+  "https://www.jqueryscript.net/demo/responsive-card-slider/img/default.jpg";
+
 export const NewProduct = () => {
-  const { control, handleSubmit } = useForm<FormInput>({
+  const productMutation = useProductMutation();
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormInput>({
     defaultValues: {
-      category: "",
+      category: "men's clothing",
       description: "",
       image: "",
       price: 0,
@@ -20,9 +32,17 @@ export const NewProduct = () => {
     },
   });
 
+  const newImage = watch("image");
+
   const onSubmit: SubmitHandler<FormInput> = (formData) => {
-    console.log(formData);
+    productMutation.mutate(formData);
   };
+
+  useEffect(() => {
+    if (productMutation.isSuccess) {
+      alert("producto creado");
+    }
+  }, [productMutation.isSuccess]);
 
   return (
     <div className="w-full flex-col">
@@ -43,6 +63,8 @@ export const NewProduct = () => {
                   className="mt-2"
                   type="text"
                   label="Titulo del producto"
+                  color={errors.title ? "danger" : "default"}
+                  // errorMessage={errors.title ? "Campo requerido" : ""}
                 />
               )}
             />
@@ -53,6 +75,7 @@ export const NewProduct = () => {
               rules={{ required: true }}
               render={({ field: { name, onChange, value } }) => (
                 <Input
+                  color={errors.price ? "danger" : "default"}
                   name={name}
                   onChange={(event) => onChange(Number(event.target.value))}
                   value={value.toString()}
@@ -69,6 +92,7 @@ export const NewProduct = () => {
               rules={{ required: true }}
               render={({ field: { name, onChange, value } }) => (
                 <Input
+                  color={errors.image ? "danger" : "default"}
                   name={name}
                   onChange={onChange}
                   value={value}
@@ -85,6 +109,7 @@ export const NewProduct = () => {
               rules={{ required: true }}
               render={({ field: { name, onChange, value } }) => (
                 <Textarea
+                  color={errors.description ? "danger" : "default"}
                   name={name}
                   onChange={onChange}
                   value={value}
@@ -114,7 +139,13 @@ export const NewProduct = () => {
             />
 
             <br />
-            <Button className="mt-2" color="primary" type="submit">
+            <Button
+              className="mt-2"
+              color="primary"
+              type="submit"
+              isDisabled={productMutation.isPending}
+              isLoading={productMutation.isPending}
+            >
               Crear
             </Button>
           </div>
@@ -126,7 +157,7 @@ export const NewProduct = () => {
               height: "600px",
             }}
           >
-            <Image src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg" />
+            <Image src={newImage.length === 0 ? IMAGE_DEFAULT : newImage} />
           </div>
         </div>
       </form>
