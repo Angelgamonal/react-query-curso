@@ -72,7 +72,7 @@ export const NewProduct = () => {
             <Controller
               control={control}
               name="price"
-              rules={{ required: true }}
+              rules={{ required: true, min: 0 }}
               render={({ field: { name, onChange, value } }) => (
                 <Input
                   color={errors.price ? "danger" : "default"}
